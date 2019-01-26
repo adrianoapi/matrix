@@ -20,5 +20,5 @@
         </div>
       @endif
     </div>
-    <a href="javascript:history.go(-1)">Voltar</a>
+    <a href="javascript:history.go(-1)" class="btn btn-default">Voltar</a>
 @endsection
