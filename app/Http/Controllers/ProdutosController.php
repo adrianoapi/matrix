@@ -62,6 +62,12 @@ class ProdutosController extends Controller
             'preco'      => 'required|numeric|between:0,99.99'
         ]);
         
+        if($request->hasFile('fotoproduto')){
+          $imagem       = $request->file('fotoproduto');
+          $nomearquivo  = md5($id) .".". $imagem->getClientOriginalExtension();
+          $request->file('fotoproduto')->move(public_path('./img/produtos/'), $nomearquivo);
+        }
+        
         $produto->referencia = $request->input('referencia');
         $produto->titulo     = $request->input('titulo');
         $produto->descricao  = $request->input('descricao');

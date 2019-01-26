@@ -29,4 +29,5 @@
 
 {{Form::submit('Cadastrar',['class'=>'btn btn-primary'])}}
 {{Form::close()}}
+<a href="/produtos" class="btn btn-secondary">Home</a>
 
