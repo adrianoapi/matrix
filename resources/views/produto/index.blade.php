@@ -11,7 +11,10 @@
         @foreach ($produtos as $produto)
             <tr>
                 <td><a href="/produtos/{{$produto->id}}">{{$produto->titulo}}</a></td>
-                <td><a href="/produtos/{{$produto->id}}" class="btn btn-default float-lg-right">View</a></td>
+                <td>
+                    <a href="/produtos/{{$produto->id}}" class="btn btn-secondary float-lg-right">View</a>&nbsp;
+                    <a href="/produtos/{{$produto->id}}/edit/" class="btn btn-secondary float-lg-right">Edit</a>
+                </td>
             </tr>
         @endforeach
     </table>
