@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Produto;
 use Session;
+use File;
 
 class ProdutosController extends Controller
 {
@@ -77,5 +78,19 @@ class ProdutosController extends Controller
             Session::flash('mensagem', 'Produto alterado com sucesso!');
             return redirect()->back();
         }
+    }
+    
+    public function destroy($id)
+    {
+        $produto = Produto::find($id);
+        $produto->delete();
+        
+        $filename = md5($id) . ".jpg";
+        if(file_exists("./img/produtos/" . $filename)){
+            File::delete("./img/produtos/" . $filename);
+        }
+        
+        Session::flash('mensagem', 'Produto excluído com sucesso');
+        return redirect()->back();
     }
 }

@@ -1,21 +1,29 @@
 @extends('layout.app')
 @section('title', 'Listagem de produtos')
 @section('content')
-    <h1>Produtos</h1>
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th colspan="2"><a href="/produtos/create" class="btn btn-primary float-lg-right">Novo</a></th>
-            </tr>
-        </thead>
-        @foreach ($produtos as $produto)
-            <tr>
-                <td><a href="/produtos/{{$produto->id}}">{{$produto->titulo}}</a></td>
-                <td>
-                    <a href="/produtos/{{$produto->id}}" class="btn btn-secondary float-lg-right">View</a>&nbsp;
-                    <a href="/produtos/{{$produto->id}}/edit/" class="btn btn-secondary float-lg-right">Edit</a>
-                </td>
-            </tr>
-        @endforeach
-    </table>
+<h1>Produtos</h1>
+@if(Session::has('mensagem'))
+<div class="alert alert-success">{{Session::get('mensagem')}}</div>
+@endif
+<div class="row">
+    @foreach ($produtos as $produto)
+      <div class="col-md-3">
+        <h4>{{$produto->titulo}}</h4>
+          @if(file_exists("./img/produtos/" . md5($produto->id) . ".jpg"))
+            <a class='thumbnail' href="{{ url('produtos/'.$produto->id) }}">
+              {{Html::image(asset("img/produtos/" . md5($produto->id) . ".jpg"), $produto->titulo, array( 'width' => 70, 'height' => 70 ))}}
+            </a>
+          @else
+            <a class='thumbnail' href="{{ url('produtos/'.$produto->id) }}">
+              {{$produto->titulo}}
+            </a>
+          @endif
+
+        {{Form::open(['route'=>['produtos.destroy',$produto->id],'method'=>'DELETE'])}}
+        <a class='btn btn-default' href=" {{url('produtos/'.$produto->id.'/edit')}} ">Editar</a>
+        {{Form::submit('Excluir',['class'=>'btn btn-primary'])}}
+        {{Form::close()}}
+      </div>
+    @endforeach
+  </div>
 @endsection
