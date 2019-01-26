@@ -2,7 +2,7 @@
 @section('title', 'Listagem de produtos')
 @section('content')
     <h1>Produtos</h1>
-    <table class="table">
+    <table class="table table-bordered table-hover">
         <thead>
             <tr>
                 <th colspan="2"><a href="/produtos/create" class="btn btn-primary float-lg-right">Novo</a></th>
