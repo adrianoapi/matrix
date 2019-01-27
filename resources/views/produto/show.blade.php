@@ -12,10 +12,10 @@
       </ul>
       <p>{{$produto->descricao}}</p>
       </div>
-      @if(file_exists("./img/produtos/" . md5($produto->id) . ".jpg"))
+      @if(file_exists("./img/produtos/" . md5($produto->id) .".". $produto->type_img))
         <div class="col-xs-6 col-md-3">
-            <a href="{{asset("img/produtos/" . md5($produto->id) . ".jpg")}}" class="thumbnail" style="width: 200px;">
-            {{Html::image(asset("img/produtos/" . md5($produto->id) . ".jpg"), $produto->titulo, array( 'width' => 70, 'height' => 70 ))}}
+            <a href="{{asset("img/produtos/" . md5($produto->id) .".". $produto->type_img)}}" class="thumbnail" style="width: 200px;">
+            {{Html::image(asset("img/produtos/" . md5($produto->id) .".". $produto->type_img), $produto->titulo, array( 'width' => 70, 'height' => 70 ))}}
           </a>
         </div>
       @endif

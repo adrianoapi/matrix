@@ -21,12 +21,12 @@
     @foreach ($produtos as $produto)
       <div class="col-md-3">
         <h4>{{$produto->titulo}}</h4>
-          @if(file_exists("./img/produtos/" . md5($produto->id) . ".jpg"))
-            <a class='thumbnail' href="{{ url('produtos/'.$produto->id) }}">
-              {{Html::image(asset("img/produtos/" . md5($produto->id) . ".jpg"), $produto->titulo, array( 'width' => 70, 'height' => 70 ))}}
+          @if(file_exists("./img/produtos/" . md5($produto->id) .".". $produto->type_img))
+            <a class='thumbnail' style="min-height: 120px;" href="{{ url('produtos/'.$produto->id) }}">
+              {{Html::image(asset("img/produtos/" . md5($produto->id) .".". $produto->type_img), $produto->titulo, array( 'width' => 70, 'height' => 70 ))}}
             </a>
           @else
-            <a class='thumbnail' href="{{ url('produtos/'.$produto->id) }}">
+            <a class='thumbnail'  style="min-height: 120px;" href="{{ url('produtos/'.$produto->id) }}">
               {{$produto->titulo}}
             </a>
           @endif

@@ -7,20 +7,25 @@ use App\Http\Requests;
 use App\Produto;
 use Session;
 use File;
-
+use Illuminate\Support\Facades\Auth;
 class ProdutosController extends Controller
 {
     public function index()
     {
-        $produtos = Produto::paginate(4);
+        //echo Auth::user();
+        if(Auth::check()){
+        $produtos = Produto::paginate(8);
         return view('produto.index', array('produtos' => $produtos, 'busca' => null));
+        }else{
+            return redirect('login');
+        }
     }
     
     public function buscar(Request $request)
     {
         $produtos = Produto::where('titulo', 'LIKE', '%'.
                 $request->input('busca').'%')->orwhere('descricao', 'LIKE', '%'.
-                $request->input('busca').'%')->paginate(4);
+                $request->input('busca').'%')->paginate(8);
         return view('produto.index', array('produtos' => $produtos,'busca'=>$request->input('busca')));
     }
     
@@ -32,7 +37,11 @@ class ProdutosController extends Controller
     
     public function create()
     {
-        return view('produto.create');
+        if(Auth::check()){
+            return view('produto.create');
+        }else{
+            return redirect('login');
+        }
     }
     
     public function store(Request $request)
@@ -58,8 +67,12 @@ class ProdutosController extends Controller
     
     public function edit($id)
     {
+        if(Auth::check()){
         $produto = Produto::find($id);
-        return view('produto.edit', array('produto' => $produto));
+            return view('produto.edit', array('produto' => $produto));
+        }else{
+            return redirect('login');
+        }
     }
     
     public function update($id, Request $request)
@@ -75,6 +88,7 @@ class ProdutosController extends Controller
           $imagem       = $request->file('fotoproduto');
           $nomearquivo  = md5($id) .".". $imagem->getClientOriginalExtension();
           $request->file('fotoproduto')->move(public_path('./img/produtos/'), $nomearquivo);
+          $produto->type_img = $imagem->getClientOriginalExtension();
         }
         
         $produto->referencia = $request->input('referencia');

@@ -19,6 +19,7 @@ class CreateProdutosTable extends Migration
             $table->string('titulo');
             $table->longText('descricao');
             $table->float('preco', 8, 2);
+            $table->string('type_img', 4);
             $table->timestamps();
         });
     }
